@@ -3,6 +3,8 @@ package com.uc.mvvmtestvideo.network;
 import com.uc.mvvmtestvideo.model.CastResponse;
 import com.uc.mvvmtestvideo.model.GenreResponse;
 import com.uc.mvvmtestvideo.model.MovieResponse;
+import com.uc.mvvmtestvideo.model.TvShow;
+import com.uc.mvvmtestvideo.model.TvShowResponse;
 import com.uc.mvvmtestvideo.util.Constants;
 
 import retrofit2.Call;
@@ -41,8 +43,12 @@ public class RetrofitService {
         return  api.getMovies(Constants.API_KEY);
     }
 
+    public Call<TvShowResponse> getTvShows() {
+        return api.getTvShows(Constants.API_KEY);
+    }
+
     public Call<GenreResponse> getGenre(String type,int id){
-        return  api.getGenre(type, id, Constants.API_KEY);
+        return  api.getGenres(type, id, Constants.API_KEY);
     }
 
     public Call<CastResponse> getCast(String type, int id) {

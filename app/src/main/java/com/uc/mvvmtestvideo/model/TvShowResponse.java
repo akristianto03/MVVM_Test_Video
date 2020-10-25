@@ -4,7 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MovieResponse {
+public class TvShowResponse {
+
 
     @SerializedName("pages")
     private int pages;
@@ -16,7 +17,7 @@ public class MovieResponse {
     private int total_results;
 
     @SerializedName("results")
-    private List<Movie> results;
+    private List<TvShow> results;
 
     public int getPages() {
         return pages;
@@ -42,11 +43,11 @@ public class MovieResponse {
         this.total_results = total_results;
     }
 
-    public List<Movie> getResults() {
+    public List<TvShow> getResults() {
         return results;
     }
 
-    public void setResults(List<Movie> results) {
+    public void setResults(List<TvShow> results) {
         this.results = results;
     }
 

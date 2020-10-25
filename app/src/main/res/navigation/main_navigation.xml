@@ -34,10 +34,10 @@
             android:name="movie"
             app:argType="com.uc.mvvmtestvideo.model.Movie"
             app:nullable="true"/>
-<!--        <argument-->
-<!--            android:name="TvShow"-->
-<!--            app:argType="com.uc.mvvmtestvideo.model.TvShow"-->
-<!--            app:nullable="true"/>-->
+        <argument
+            android:name="TvShow"
+            app:argType="com.uc.mvvmtestvideo.model.TvShow"
+            app:nullable="true"/>
     </fragment>
     <fragment
         android:id="@+id/nav_tv"

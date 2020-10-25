@@ -21,8 +21,10 @@ import android.widget.Toast;
 import com.uc.mvvmtestvideo.R;
 import com.uc.mvvmtestvideo.adapter.MovieAdapter;
 import com.uc.mvvmtestvideo.model.Movie;
+import com.uc.mvvmtestvideo.ui.MainActivity;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +50,11 @@ public class MovieFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
+
+        Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setIcon(R.drawable.ic_icon);
+        Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setTitle("   Movies");
 
         movieAdapter = new MovieAdapter(getContext());
         recViewFilm.setLayoutManager(new LinearLayoutManager(getActivity()));

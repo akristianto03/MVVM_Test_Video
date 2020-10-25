@@ -59,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CardViewHold
         holder.rating.setText(movie.getPopularity());
 
         holder.itemView.setOnClickListener(v -> {
-            NavDirections action = MovieFragmentDirections.actionMovietoDetailFragment(movie);
+            NavDirections action = MovieFragmentDirections.actionMovietoDetailFragment(movie, null);
             Navigation.findNavController(v).navigate(action);
         });
     }

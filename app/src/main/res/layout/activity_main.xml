@@ -27,6 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:itemIconTint="@color/colorAccent"
         app:itemTextColor="@color/colorAccent"
+        android:backgroundTint="#28272d"
         app:menu="@menu/nav_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

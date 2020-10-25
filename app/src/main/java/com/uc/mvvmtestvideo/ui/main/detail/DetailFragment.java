@@ -21,6 +21,7 @@ import com.uc.mvvmtestvideo.adapter.CastAdapter;
 import com.uc.mvvmtestvideo.model.Cast;
 import com.uc.mvvmtestvideo.model.Genre;
 import com.uc.mvvmtestvideo.model.Movie;
+import com.uc.mvvmtestvideo.model.TvShow;
 import com.uc.mvvmtestvideo.ui.MainActivity;
 
 import java.util.Objects;
@@ -52,7 +53,7 @@ public class DetailFragment extends Fragment {
     RecyclerView recViewCast;
 
     private Movie movie;
-//    private tv
+    private TvShow tvShow;
     private DetailViewModel viewModel;
     private CastAdapter adapter;
 
@@ -71,6 +72,7 @@ public class DetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(false);
         viewModel = ViewModelProviders.of(requireActivity()).get(DetailViewModel.class);
 
         recViewCast.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -78,21 +80,22 @@ public class DetailFragment extends Fragment {
 
         if(getArguments() != null){
             movie = DetailFragmentArgs.fromBundle(getArguments()).getMovie();
-            //tv show
+            tvShow = DetailFragmentArgs.fromBundle(getArguments()).getTvShow();
 
             if(movie != null){
                 setupMovie(movie);
-                observeViewModel(Integer.parseInt(movie.getIdMovie()));
+                observeMovieViewModel(Integer.parseInt(movie.getIdMovie()));
 
             }else {
-                //tv show
+                setupTvShow(tvShow);
+                observeTvShowViewModel(Integer.parseInt(tvShow.getIdTv()));
             }
 
         }
 
     }
 
-    private void observeViewModel(int id){
+    private void observeMovieViewModel(int id){
         viewModel.getMovieGenre(id).observe(requireActivity(),genres -> {
             if(genres != null){
                 for (int i=0;i<genres.size();i++){
@@ -114,6 +117,28 @@ public class DetailFragment extends Fragment {
         });
     }
 
+    private void observeTvShowViewModel(int id){
+        viewModel.getTvShowGenre(id).observe(requireActivity(),genres -> {
+            if(genres != null){
+                for (int i=0;i<genres.size();i++){
+                    Genre genre = genres.get(i);
+                    if (i < genres.size() - 1){
+                        detailGenre.append(genre.getName() + " | ");
+                    }else{
+                        detailGenre.append(genre.getName());
+                    }
+                }
+            }
+        });
+        viewModel.getTvShowCast(id).observe(requireActivity(), casts -> {
+            if (casts != null){
+                adapter.setListCast(casts);
+                adapter.notifyDataSetChanged();
+                recViewCast.setAdapter(adapter);
+            }
+        });
+    }
+
     private void setupMovie(Movie movie){
         Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setTitle(movie.getTitle());
         Glide.with(getActivity()).load(movie.getPoster()).into(detailCover);
@@ -121,6 +146,15 @@ public class DetailFragment extends Fragment {
         detailTitle.setText(movie.getTitle());
         detailPopular.setText(movie.getPopularity());
         detailDesc.setText(movie.getDescription());
+    }
+
+    private void setupTvShow(TvShow tvShow){
+        Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setTitle(tvShow.getTitle());
+        Glide.with(getActivity()).load(tvShow.getPoster()).into(detailCover);
+        Glide.with(getActivity()).load(tvShow.getPoster()).into(detailPoster);
+        detailTitle.setText(tvShow.getTitle());
+        detailPopular.setText(tvShow.getPopularity());
+        detailDesc.setText(tvShow.getDescription());
     }
 
 }
